@@ -34,8 +34,8 @@ if (!empty($embedtype) && $embedtype== 'metabase' && $Metabase_Embed_Secret) {
 	);
 
 	$token = JWT::encode($payload, $Metabase_Embed_Secret);
-	$theme = !empty($_REQUEST['theme']) ? '/#theme='.vtlib_purify($_REQUEST['theme']):'';
-	$ifpage=$_REQUEST['dashboard_url']."/embed/dashboard/".$token.$theme;
+	$theme = empty($_REQUEST['theme']) ? '' : '/#theme='.vtlib_purify($_REQUEST['theme']);
+	$ifpage = $_REQUEST['dashboard_url']."/embed/dashboard/".$token.$theme;
 } else {
 	$ifpage = getMergedDescription(vtlib_purify($_REQUEST['load']), $current_user->id, 'Users');
 }
